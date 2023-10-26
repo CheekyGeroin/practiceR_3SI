@@ -3,10 +3,11 @@ import { Component } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
 import { Container } from './App.styled';
 import { ErrorHandler } from './ErrorHandler/ErrorHandler';
-import { ImagehGallery } from './ImageGallery/ImageGallery';
+import { ImageGallery } from './ImageGallery/ImageGallery';
 import { Loader } from './Loader/Loader';
 import { Modal } from './Modal/Modal';
 import { SearchBar } from './Searchbar/Searchbar';
+import { Button } from './Button/Button';
 
 export class App extends Component {
   state = {
@@ -14,7 +15,7 @@ export class App extends Component {
     imageName: ' ',
     status: 'idle',
     page: 1,
-    modalContent: ' ',
+    modalContent: '',
   };
   componentDidUpdate = (prevProps, prevState) => {
     const { imageName, page } = this.state;
@@ -85,10 +86,11 @@ export class App extends Component {
         <SearchBar onSubmit={this.getSearchName} />
         {status === 'pending' && <Loader />}
         {status === 'resolved' && (
-          <ImagehGallery images={images} onClick={this.openModal} />
+          <ImageGallery images={images} onClick={this.openModal} />
         )}
         {status === 'rejected' && <ErrorHandler />}
-        {modalContent !== ' ' && (
+        {images.length > 0 && <Button onClick={this.loadMoreImages} />}
+        {modalContent && (
           <Modal onClose={this.closeModal}>
             <img src={modalContent} alt={imageName} />
           </Modal>

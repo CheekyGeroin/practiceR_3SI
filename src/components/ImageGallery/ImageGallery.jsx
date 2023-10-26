@@ -1,11 +1,12 @@
 import { Component } from 'react';
+import PropTypes from 'prop-types';
 import { ImageGalleryList } from './ImageGallery.styled';
 import { ImageGalleryItem } from './ImageGalleryItem/ImageGalleryItem';
 
-export class ImagehGallery extends Component {
+export class ImageGallery extends Component {
   render() {
-    const { images } = this.props;
-
+    const { images, onClick } = this.props;
+    console.log(images);
     return (
       <ImageGalleryList>
         {images.length >= 1 &&
@@ -16,10 +17,23 @@ export class ImagehGallery extends Component {
                 smallImage={webformatURL}
                 largeImage={largeImageURL}
                 tags={tags}
+                onClick={onClick}
               />
             );
-          })()}
+          })}
       </ImageGalleryList>
     );
   }
 }
+
+ImageGallery.propTypes = {
+  images: PropTypes.arrayOf(
+    PropTypes.exact({
+      id: PropTypes.number.isRequired,
+      webformatURL: PropTypes.string.isRequired,
+      largeImageURL: PropTypes.string.isRequired,
+      tags: PropTypes.string.isRequired,
+    })
+  ),
+  onClick: PropTypes.func.isRequired,
+};

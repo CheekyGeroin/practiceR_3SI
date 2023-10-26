@@ -25,7 +25,7 @@ export class SearchBar extends Component {
   render() {
     return (
       <SearchBarContainer>
-        <SearchForm onSubmit>
+        <SearchForm onSubmit={this.sendResult}>
           <SearchButton type="submit">
             <SearchButtonLabel>Search</SearchButtonLabel>
           </SearchButton>
@@ -35,6 +35,7 @@ export class SearchBar extends Component {
             autoComplete="off"
             autoFocus
             placeHolder="Search images and photos"
+            onChange={this.handleQuery}
           />
         </SearchForm>
       </SearchBarContainer>
